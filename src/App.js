@@ -6,24 +6,7 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      board: [
-        { number: 0, blank: false },
-        { number: 1, blank: false },
-        { number: 2, blank: false },
-        { number: 3, blank: false },
-        { number: 4, blank: false },
-        { number: 5, blank: false },
-        { number: 6, blank: false },
-        { number: 7, blank: false },
-        { number: 8, blank: false },
-        { number: 9, blank: false },
-        { number: 10, blank: false },
-        { number: 11, blank: false },
-        { number: 12, blank: false },
-        { number: 13, blank: false },
-        { number: 14, blank: false },
-        { number: 15, blank: true }
-      ],
+      board: [],
       empty: { index: 15 },
       win: false,
       n: 4
@@ -33,7 +16,18 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.shuffle();
+    let n = this.state.n;
+    let board = [];
+    let empty = { index: n * n - 1 };
+    for (let i = 0; i < n * n; i++) {
+      if (i < n * n - 1) {
+        board.push({ number: i, blank: false });
+      } else {
+        board.push({ number: i, blank: true });
+      }
+    }
+    this.setState({ empty });
+    this.setState({ board }, this.shuffle);
   }
 
   shuffle() {
@@ -59,6 +53,7 @@ class App extends Component {
       let clickedI = possible[random];
       this.move(clickedI, emptyI);
     }
+    this.setState({ win: false });
   }
 
   checkWin() {
@@ -85,8 +80,6 @@ class App extends Component {
     empty.index = clickedI;
     this.setState({ board });
     this.setState({ empty });
-    // check win after every move
-    this.checkWin();
   }
 
   tileClicked(clickedI) {
@@ -102,6 +95,7 @@ class App extends Component {
     } else if (clickedC === emptyC && Math.abs(clickedR - emptyR) === 1) {
       this.move(clickedI, emptyI);
     }
+    this.checkWin();
   }
 
   render() {
