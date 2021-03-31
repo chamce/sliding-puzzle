@@ -1,0 +1,21 @@
+Puzzle Slider
+- 4 x 4 grid (array with 16 positions)
+- shuffle board
+- tiles numbered 0 - 14
+- one empty tile
+- each tile has a number and an inherit index
+- win occurs when numbers and indexes are equal
+- row is index / 4
+- col is index % 4
+- if clicked row equals empty row && clicked col equals empty col ± 1
+    swap
+- if clicked col equals empty col && clicked row equals empty row ± 1
+    swap
+- else
+    don't swap
+
+board = [
+    { number: 0,
+      blank: false
+    },
+]
