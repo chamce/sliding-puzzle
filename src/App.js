@@ -10,7 +10,9 @@ class App extends Component {
       empty: {},
       win: false,
       n: 4,
-      moves: 0
+      moves: 0,
+      file: '',
+      imagePreviewUrl: ''
     }
     this.tileClicked = this.tileClicked.bind(this);
     this.shuffle = this.shuffle.bind(this);
@@ -50,7 +52,7 @@ class App extends Component {
     if (this.state.moves % 2 === 0) {
       // make moves odd
       shuffles = 3;
-    // if moves odd
+      // if moves odd
     } else {
       // keep odd
       shuffles = 4;
@@ -143,7 +145,36 @@ class App extends Component {
     }
   }
 
+  _handleSubmit(e) {
+    e.preventDefault();
+    // TODO: do something with -> this.state.file
+    console.log('handle uploading-', this.state.file);
+  }
+
+  _handleImageChange(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imagePreviewUrl: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file)
+  }
+
   render() {
+    let { imagePreviewUrl } = this.state;
+    let $imagePreview = null;
+    if (imagePreviewUrl) {
+      $imagePreview = (<img src={imagePreviewUrl} />);
+    } else {
+      $imagePreview = (<div className="previewText">Please select an Image for Preview</div>);
+    }
     return (
       <>
         {/* set container to larger than board */}
@@ -158,8 +189,16 @@ class App extends Component {
           </div>
           <div className='row'>
             <div className='col'>
+              {/* <div className="previewComponent">
+                <form onSubmit={(e) => this._handleSubmit(e)}>
+                  <input className="fileInput"
+                    type="file"
+                    onChange={(e) => this._handleImageChange(e)} >
+                  </input>
+                </form>
+              </div> */}
               {/* button reads shuffle if not win */}
-              <button type='button' className='btn btn-primary btn-lg mt-3' onClick={this.shuffle}>{this.state.win ? 'Reset' : 'Shuffle'}</button>
+              <button type='button' image={this.state.file} className='btn btn-primary btn-lg mt-3' onClick={this.shuffle}>{this.state.win ? 'Reset' : 'Shuffle'}</button>
               {/* declare win if win */}
               <h2 className='mt-2'>{this.state.win ? 'Win!' : ''}</h2>
             </div>
