@@ -7,7 +7,7 @@ class App extends Component {
     super(props);
     this.state = {
       board: [],
-      empty: { index: 15 },
+      empty: {},
       win: false,
       n: 4
     }
@@ -32,7 +32,7 @@ class App extends Component {
 
   shuffle() {
     let n = this.state.n;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < 20; i++) {
       // gather row and col information of empty
       let emptyI = this.state.empty.index;
       let emptyRow = Math.floor(emptyI / n);
@@ -101,13 +101,15 @@ class App extends Component {
   render() {
     return (
       <>
-        <div className='container'>
-          <div className='row text-center fs-1'>
+        <div className='container text-center' style={{ width: '500px', height: '500px' }}>
+          <div className='row'>
             <h1>Sliding Puzzle</h1>
+          </div>
+          <div className='row mx-auto fs-1' style={{ width: '400px', height: '400px' }}>
             {this.state.board.map((tile, index) => <Tile tile={tile} key={index} index={index} clickHandler={this.tileClicked}></Tile>)}
           </div>
           <div className='row'>
-            <div className='col text-center fs-1'>
+            <div className='col'>
               <h2 className='mt-1'>{this.state.win ? 'Win!' : ''}</h2>
               <button type='button' className={'btn btn-primary btn-lg ' + (this.state.win ? '' : 'd-none')} onClick={this.shuffle}>Reset</button>
             </div>
