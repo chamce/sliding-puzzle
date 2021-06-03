@@ -3,8 +3,8 @@ import babyoda from './babyoda.jpeg';
 
 export default function Tile(props) {
     // find top and left style from tile's number identifier
-    let top = -100 * Math.floor(props.tile.number / 4);
-    let left = -100 * (props.tile.number % 4);
+    let top = -80 * Math.floor(props.tile.number / 4);
+    let left = -80 * (props.tile.number % 4);
     return (
         <>
             {/* overflow-hidden and position relative for img; send tile index to click handler */}

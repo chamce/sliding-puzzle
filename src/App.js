@@ -178,12 +178,12 @@ class App extends Component {
     return (
       <>
         {/* set container to larger than board */}
-        <div className='container text-center' style={{ width: '500px', height: '500px' }}>
+        <div className='container text-center p-0'>
           <div className='row'>
             <h1>Sliding Puzzle</h1>
           </div>
           {/* mx-auto to center because set width + height */}
-          <div className='row mx-auto fs-1 border border-dark' style={{ width: '400px', height: '400px' }}>
+          <div className='row mx-auto fs-1 border border-dark' style={{ width: '320px', height: '320px' }}>
             {/* map each tile object in board to tile component sending tile object, index, and tile clicked handler */}
             {this.state.board.map((tile, index) => <Tile tile={tile} key={index} index={index} clickHandler={this.tileClicked}></Tile>)}
           </div>
